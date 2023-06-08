@@ -1,0 +1,24 @@
+<html>
+  <head>
+    <title>Add Movie</title>
+  </head>
+  <body>
+    <h1>Add Movie to Database!</h1>
+    <form action="http://localhost:5000/api/movies" method="POST">
+      <table>
+        <tr>
+          <td><label for="movieName">Movie Name:- </label></td>
+          <td><input type="text" name="movieName" id="movieName" /></td>
+        </tr>
+        <tr>
+          <td><label for="genre">Genre:- </label></td>
+          <td><input type="text" name="genre" id="genre" /></td>
+        </tr>
+        <tr>
+          <td><input type="reset" value="Clear All" /></td>
+          <td><input type="submit" value="Submit" /></td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>
