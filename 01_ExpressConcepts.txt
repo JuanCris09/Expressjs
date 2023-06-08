@@ -1,0 +1,97 @@
+Express.js Request Object Properties
+
+req.app
+req.body
+req.hostname
+...
+
+Request Object Methods
+----------------------
+req.accepts (types)
+-------------------
+req.accepts('html');  
+//=>?html?  
+req.accepts('text/html');  
+// => ?text/html?  
+
+req.get(field)
+--------------
+req.get('Content-Type');  
+// => "text/plain"  
+req.get('content-type');  
+// => "text/plain"  
+req.get('Something');  
+// => undefined  
+
+
+req.is(type)
+------------
+// With Content-Type: text/html; charset=utf-8  
+req.is('html');  
+req.is('text/html');  
+req.is('text/*');  
+// => true  
+
+
+req.param(name [, defaultValue])
+
+// GET => ?name=sasha  
+req.param('name')  
+// => "sasha"  
+// POST name=sasha  
+req.param('name')  
+// => "sasha"  
+// /user/sasha for /user/:name   
+req.param('name')  
+// => "sasha"  
+
+
+Response Object Properties
+
+res.app	 -> reference of express app
+res.headersSent	
+res.locals	
+
+Response Object Methods
+
+Response Append method
+----------------------
+res.append(field [, value])   
+res.append('Link', ['<http://localhost/>', '<http://localhost:3000/>']);  
+res.append('Warning', '199 Miscellaneous warning');  
+
+res.attachment([filename])  
+res.attachment('path/to/js_pic.png');    
+
+res.cookie(name, value [, options])  
+-----------------------------------
+res.cookie('name', 'Aryan', { domain: '.xyz.com', path: '/admin', secure: true });  
+res.cookie('Section', { Names: [Aryan,Sushil,Priyanka] });  
+res.cookie('Cart', { items: [1,2,3] }, { maxAge: 900000 });  
+
+
+res.clearCookie(name [, options])   
+------------------------------------
+res.cookie('name', 'Aryan', { path: '/admin' });  
+res.clearCookie('name', { path: '/admin' });  
+
+
+res.end([data] [, encoding])   
+-----------------------------
+res.end();  
+---------------
+res.status(404).end();  
+
+res.get(field)   
+res.get('Content-Type');   
+
+res.json([body])  
+--------------- 
+res.json(null)  
+res.json({ name: 'ajeet' })  
+
+...other mathods..
+
+
+
+

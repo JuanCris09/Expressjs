@@ -1,0 +1,27 @@
+1. create a folder
+    mkdir expressjs
+    cd expressjs
+    npm init
+        -> answered 7 questions
+    npm i express
+    npm i nodemon
+
+2. create a file 01_Intro.js
+    const express = require("express");
+    const app = express();
+
+    app.get("/", (req, res) => {
+    res.send("Express JS, Hello everyone!");
+    });
+
+    const port = process.env.PORT || "5000";
+    app.listen(port, () => console.log(`Listening to port ${port}`));
+
+3. Start the nodemon
+    nodemon 01_Intro.js -> Auto-reload the page if we make some changes in the file.
+
+
+4. npm install body-parser --save   
+5. npm install cookie-parser --save   
+6. npm install multer --save   
+
