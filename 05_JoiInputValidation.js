@@ -37,8 +37,8 @@ app.post("/api/movies", (req, res) => {
   //Adding the movie to movies list
   let newMovie = {
     id: movies.length + 1,
-    name: name,
-    genre: genre,
+    name: nombre,
+    genre: genero,
   };
 
   movies.push(newMovie);
