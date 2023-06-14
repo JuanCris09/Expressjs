@@ -27,7 +27,7 @@ app.post("/api/movies", (req, res) => {
   if (!name || name.length < 3) {
     res
       .status(400)
-      .send("The name of the momvie is not present or less than 3 characters");
+      .send("The name of the movie is not present or less than 3 characters");
     return;
   }
 
