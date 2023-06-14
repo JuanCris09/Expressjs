@@ -33,14 +33,32 @@ app.get("/api/games", (req, res) => {
 });
 
 // Get a game
-app.get("/api/games/:id", (req, res) => {
-  let Prefind = (gam) => gam.id === parseInt(req.params.id);
-  let found = games.find(Prefind);
-  if (found) {
-    res.send(found);
-  } else res.send(`No game found: ${req.params.id}`);
-});
+// app.get("/api/games/:id", (req, res) => {
+//   let Prefind = (gam) => gam.id === parseInt(req.params.id);
+//   let found = games.find(Prefind);
+//   if (found) {
+//     res.send(found);
+//   } else res.send(`No game found: ${req.params.id}`);
+// });
 
+// Another way to find name
+app.get("/api/games/id/:id", (req, res) => {
+  res.send(findProduct("id", parseInt(req.params.id)));
+});
+app.get("/api/games/name/:name", (req, res) => {
+  res.send(findProduct("name", req.params.name));
+});
+app.get("/api/games/brand/:brand", (req, res) => {
+  res.send(findProduct("brand", req.params.brand));
+});
+let findProduct = (key, value) => {
+  const prod = games.filter((p) => p[key] === value);
+  if (prod) {
+    return prod.length == 1 ? prod[0] : prod;
+  } else {
+    return `No Games found for ${key}: ${value}`;
+  }
+};
 
 //Add a game
 app.use(express.json());
@@ -98,7 +116,6 @@ app.put("/api/games/:id", (req, res) => {
     price: Joi.number().required(),
     brand: Joi.string().min(3).required,
     quantity: Joi.number(),
-
   });
   const result = schema.validate(req.body);
 
@@ -119,31 +136,31 @@ app.put("/api/games/:id", (req, res) => {
 
 //Delete a game
 
-app.delete("/api/games/:id",(req,res) => {
+app.delete("/api/games/:id", (req, res) => {
   const idValidationSchema = Joi.object({
     id: Joi.number().integer(),
-});
-const idValidationResult = idValidationSchema.validate(req.params);
-if (idValidationResult.error) {
-  const errMessage = idValidationResult.error.details[0].message;
-  console.log("errMessage: ", errMessage);
-  res.status(400).send(errMessage);
-  return;
-}
+  });
+  const idValidationResult = idValidationSchema.validate(req.params);
+  if (idValidationResult.error) {
+    const errMessage = idValidationResult.error.details[0].message;
+    console.log("errMessage: ", errMessage);
+    res.status(400).send(errMessage);
+    return;
+  }
 
-//Find the game, if exists or not
-let game = games.find((g) => g.id === parseInt(req.params.id));
-//if not return with suitable message
-if (!game) {
-  res.send(`No game found for the id :- ${req.params.id}`);
-}
+  //Find the game, if exists or not
+  let game = games.find((g) => g.id === parseInt(req.params.id));
+  //if not return with suitable message
+  if (!game) {
+    res.send(`No game found for the id :- ${req.params.id}`);
+  }
 
-//Delete movie logic
-const index = games.indexOf(game);
-if (index != -1) {
-  games.splice(index, 1);
-}
-res.send(game);
+  //Delete movie logic
+  const index = games.indexOf(game);
+  if (index != -1) {
+    games.splice(index, 1);
+  }
+  res.send(game);
 });
 const port = process.env.PORT || "5000";
 
